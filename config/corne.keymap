@@ -14,10 +14,11 @@
 #define NUMS 2
 #define NAVI 3
 
+&mt {
+    tapping-term-ms = <120>;
+};
+
 / {
-        &mt {
-            tapping-term-ms = <120>;
-        };
 
         keymap {
                 compatible = "zmk,keymap";
