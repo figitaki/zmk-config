@@ -13,6 +13,8 @@
 #define SYMS 1
 #define NUMS 2
 #define NAVI 3
+#define GAME 4
+#define GNUM 5
 
 / {
 
@@ -40,6 +42,7 @@
         compatible = "zmk,keymap";
 
         BASE {
+            display-name = "Base";
             bindings = <
   &kp TAB   &kp Q       &kp W      &kp F      &kp P       &kp B &kp J &kp L       &kp U      &kp Y      &kp SEMI    &kp BSPC
   &kp LCTRL &hm LCTRL A &hm LALT R &hm LGUI S &hm LSHFT T &kp G &kp M &hm RSHFT N &hm RGUI E &hm RALT I &hm RCTRL O &kp SQT
@@ -49,6 +52,7 @@
         };
 
         SYMS {
+            display-name = "Syms";
             bindings = <
   &kp  TAB  &kp GRAVE &kp EXCL &kp DLLR &kp PRCNT &kp CARET &kp AMPS  &kp ASTRK &kp MINUS &kp PLUS &kp BSLH  &kp BSPC
   &kp LCTRL &kp APOS  &kp DQT  &kp LBRC &kp LPAR  &kp LBKT  &kp RBKT  &kp RPAR  &kp RBRC  &kp DQT  &kp APOS  &kp GRAVE
@@ -58,6 +62,7 @@
         };
 
         NUMS {
+            display-name = "Nums";
             bindings = <
   &kp TAB   &trans &trans &trans &trans &trans &trans   &kp N7 &kp N8 &kp N9 &kp FSLH &kp BSPC
   &kp LCTRL &trans &trans &trans &trans &trans &kp BSPC &kp N4 &kp N5 &kp N6 &kp RET  &kp GRAVE
@@ -67,11 +72,40 @@
         };
 
         NAVI {
+            display-name = "Navi";
             bindings = <
-  &kp TAB    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans   &trans   &trans &trans    &trans &trans
+  &kp TAB    &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4 &trans   &trans   &trans &trans    &trans &tog GAME
   &kp LSHFT  &trans       &trans       &kp C_VOL_DN &kp C_VOL_UP &trans       &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
   &kp LSHFT  &bootloader  &trans       &kp C_BRI_DN &kp C_BRI_UP &bt BT_CLR   &trans   &trans   &trans &trans    &trans &trans
                                        &trans       &trans       &trans       &trans   &trans   &trans
+            >;
+        };
+
+        // Gaming layer: plain QWERTY, no home-row mods, so held keys stay held.
+        // Toggle on from NAVI (top-right key), toggle off with the bottom-right key.
+        // Left pinky column keeps Tab / Ctrl / Shift for WC3 (subgroup cycle,
+        // assign group, shift-queue). Hold the middle left thumb for GNUM.
+        GAME {
+            display-name = "Game";
+            bindings = <
+  &kp TAB   &kp Q &kp W &kp E &kp R &kp T   &kp Y &kp U &kp I     &kp O   &kp P    &kp BSPC
+  &kp LCTRL &kp A &kp S &kp D &kp F &kp G   &kp H &kp J &kp K     &kp L   &kp SEMI &kp SQT
+  &kp LSHFT &kp Z &kp X &kp C &kp V &kp B   &kp N &kp M &kp COMMA &kp DOT &kp FSLH &tog GAME
+                  &kp ESC &mo GNUM &kp SPACE   &kp RET &kp SPACE &kp LALT
+            >;
+        };
+
+        // Game numbers: 1-0 on the top row (control groups), F1-F10 on the
+        // left hand (heroes on F1-F3, idle worker on F8) so everything is
+        // reachable with the right hand on the mouse. Pinky column stays
+        // transparent so Ctrl+<thumb>+N assigns a control group.
+        GNUM {
+            display-name = "GNum";
+            bindings = <
+  &trans &kp N1 &kp N2 &kp N3 &kp N4 &kp N5    &kp N6       &kp N7       &kp N8     &kp N9    &kp N0  &kp DEL
+  &trans &kp F1 &kp F2 &kp F3 &kp F4 &kp F5    &kp LEFT     &kp DOWN     &kp UP     &kp RIGHT &kp F11 &kp F12
+  &trans &kp F6 &kp F7 &kp F8 &kp F9 &kp F10   &kp C_VOL_DN &kp C_VOL_UP &kp C_MUTE &kp C_PP  &trans  &trans
+                &trans &trans &trans           &trans       &trans       &trans
             >;
         };
     };
